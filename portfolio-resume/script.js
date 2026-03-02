@@ -5,9 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavbarScroll();
     initProjectFilter();
     initFadeInSections();
-    initSkillBars();
     initTypingEffect();
     initFooterYear();
+    initTicker();
+    initCountUpAnimation();
 });
 
 /* ==================== 1. 모바일 메뉴 토글 ==================== */
@@ -155,29 +156,7 @@ function initFadeInSections() {
     });
 }
 
-/* ==================== 6. 스킬 바 진입 애니메이션 ==================== */
-function initSkillBars() {
-    const skillBars = document.querySelectorAll('.skill-bar');
-
-    // IntersectionObserver로 스킬 바 영역이 보이면 애니메이션 시작
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
-                entry.target.classList.add('animated');
-                // 애니메이션 이후 observer 제거
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
-
-    skillBars.forEach(bar => {
-        observer.observe(bar);
-    });
-}
-
-/* ==================== 7. 타이핑 효과 (직함 순환) ==================== */
+/* ==================== 6. 타이핑 효과 (직함 순환) ==================== */
 function initTypingEffect() {
     const typedText = document.getElementById('typed-text');
 
@@ -227,9 +206,48 @@ function initTypingEffect() {
     typeTitle();
 }
 
-/* ==================== 8. 푸터 연도 자동 업데이트 ==================== */
+/* ==================== 7. 푸터 연도 자동 업데이트 ==================== */
 function initFooterYear() {
     const currentYearElement = document.getElementById('current-year');
     const currentYear = new Date().getFullYear();
     currentYearElement.textContent = currentYear;
+}
+
+/* ==================== 8. 티커 무한 스크롤 DOM 복제 ==================== */
+function initTicker() {
+    const track = document.querySelector('.ticker-track');
+    if (!track) return;
+
+    // CSS 애니메이션이 -50% 지점에서 원위치하는 무한 루프를 위해 2배 복제
+    track.innerHTML = track.innerHTML + track.innerHTML;
+}
+
+/* ==================== 9. 어바웃 섹션 숫자 카운트업 애니메이션 ==================== */
+function initCountUpAnimation() {
+    const counters = document.querySelectorAll('[data-count-to]');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting || entry.target.classList.contains('counted')) return;
+
+            entry.target.classList.add('counted');
+            const target = parseInt(entry.target.dataset.countTo, 10);
+            const suffix = entry.target.dataset.suffix || '';
+            let current = 0;
+            const step = target / (1500 / 16); // 1.5초 동안 카운트업
+
+            const timer = setInterval(() => {
+                current = Math.min(current + step, target);
+                entry.target.textContent = Math.floor(current) + suffix;
+
+                if (current >= target) {
+                    clearInterval(timer);
+                }
+            }, 16); // 약 60fps
+
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(el => observer.observe(el));
 }

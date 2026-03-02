@@ -5,11 +5,11 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #0f172a;
+    background: #0d0d0d;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #6366f1;
+    background: #8b5cf6;
     border-radius: 5px;
 }
 
@@ -19,25 +19,25 @@
 
 /* Firefox */
 * {
-    scrollbar-color: #6366f1 #0f172a;
+    scrollbar-color: #8b5cf6 #0f172a;
     scrollbar-width: thin;
 }
 
 /* ==================== 텍스트 선택 색상 ==================== */
 ::selection {
-    background-color: #6366f1;
+    background-color: #8b5cf6;
     color: #ffffff;
 }
 
 ::-moz-selection {
-    background-color: #6366f1;
+    background-color: #8b5cf6;
     color: #ffffff;
 }
 
 /* ==================== 포커스 접근성 ==================== */
 a:focus-visible,
 button:focus-visible {
-    outline: 2px solid #6366f1;
+    outline: 2px solid #8b5cf6;
     outline-offset: 2px;
 }
 
@@ -46,7 +46,7 @@ button:focus-visible {
     display: inline-block;
     width: 3px;
     height: 1em;
-    background-color: #6366f1;
+    background-color: #8b5cf6;
     margin-left: 4px;
     animation: blink 1s steps(2, start) infinite;
     vertical-align: middle;
@@ -61,22 +61,36 @@ button:focus-visible {
     }
 }
 
-/* ==================== 스킬 바 애니메이션 ==================== */
-.skill-bar {
-    width: 0 !important;
-    transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+/* ==================== 기술 배지 ==================== */
+.skill-tag {
+    transition: all 0.2s ease;
 }
 
-.skill-bar.animated {
-    animation: fillBar 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+.skill-tag:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
 }
 
-@keyframes fillBar {
-    from {
-        width: 0;
+/* ==================== 티커 무한 스크롤 ==================== */
+.ticker-wrapper {
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.ticker-track {
+    animation: tickerScroll 30s linear infinite;
+}
+
+.ticker-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes tickerScroll {
+    0% {
+        transform: translateX(0);
     }
-    to {
-        width: inherit;
+    100% {
+        transform: translateX(-50%);
     }
 }
 
@@ -141,33 +155,23 @@ a {
 /* ==================== 버튼 활성 상태 ==================== */
 .filter-btn.active {
     background-color: rgba(99, 102, 241, 0.1);
-    border-color: #6366f1;
-    color: #6366f1;
+    border-color: #8b5cf6;
+    color: #8b5cf6;
 }
 
 .filter-btn {
     transition: all 0.3s ease;
 }
 
-/* ==================== 섹션 타이틀 강조 ==================== */
-section > .max-w-4xl > h2 {
-    animation: fadeInDown 0.8s ease-out;
+
+/* ==================== 프로젝트 카드 ==================== */
+.project-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ==================== 카드 그림자 효과 ==================== */
 .project-card:hover {
-    box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -5px rgba(139, 92, 246, 0.25);
 }
 
 /* ==================== 반응형 미디어 쿼리 ==================== */
