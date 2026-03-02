@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html class="scroll-smooth dark" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="전문적인 개발자 이력서 포트폴리오 - 풀스택 개발자의 경력, 프로젝트, 기술 스택을 소개합니다.">
+    <meta name="keywords" content="개발자, 웹 개발, 포트폴리오, 이력서, 풀스택">
+    <meta name="author" content="홍길동">
+
+    <!-- Open Graph 메타 태그 -->
+    <meta property="og:title" content="홍길동 - 풀스택 개발자">
+    <meta property="og:description" content="웹 개발, 오픈소스 기여, 기술 리더십">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind 커스텀 설정 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        dark: {
+                            bg: '#0f172a',
+                            surface: '#1e293b',
+                            border: '#334155',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            },
+            darkMode: 'class',
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- 커스텀 CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <title>홍길동 - 풀스택 개발자</title>
+</head>
+<body class="bg-dark-bg text-gray-100">
+
+    <!-- ==================== 네비게이션 바 ==================== -->
+    <nav id="navbar" class="fixed top-0 w-full bg-dark-surface/80 backdrop-blur-md z-50 border-b border-dark-border transition-shadow duration-300">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- 로고 -->
+                <a href="#hero" class="text-2xl font-bold bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity">
+                    김개발
+                </a>
+
+                <!-- 데스크톱 메뉴 -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#experience" class="nav-link text-gray-300 hover:text-primary transition-colors">경력</a>
+                    <a href="#projects" class="nav-link text-gray-300 hover:text-primary transition-colors">프로젝트</a>
+                    <a href="#skills" class="nav-link text-gray-300 hover:text-primary transition-colors">기술</a>
+                    <a href="#contact" class="nav-link text-gray-300 hover:text-primary transition-colors">연락처</a>
+                </div>
+
+                <!-- 모바일 햄버거 버튼 -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-300 hover:text-primary transition-colors" aria-label="메뉴 열기" aria-expanded="false">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- 모바일 메뉴 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-dark-bg border-t border-dark-border">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#experience" class="block px-4 py-2 text-gray-300 hover:text-primary hover:bg-dark-surface rounded-lg transition-colors">경력</a>
+                <a href="#projects" class="block px-4 py-2 text-gray-300 hover:text-primary hover:bg-dark-surface rounded-lg transition-colors">프로젝트</a>
+                <a href="#skills" class="block px-4 py-2 text-gray-300 hover:text-primary hover:bg-dark-surface rounded-lg transition-colors">기술</a>
+                <a href="#contact" class="block px-4 py-2 text-gray-300 hover:text-primary hover:bg-dark-surface rounded-lg transition-colors">연락처</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== 히어로 섹션 ==================== -->
+    <section id="hero" class="min-h-screen flex items-center justify-center pt-20 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-dark-bg to-dark-surface/30">
+        <div class="max-w-4xl mx-auto text-center fade-in-section">
+            <!-- 프로필 사진 (플레이스홀더) -->
+            <div class="mb-8">
+                <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-6xl font-bold text-dark-bg">
+                    홍
+                </div>
+            </div>
+
+            <!-- 이름 및 직함 -->
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 text-white">홍길동</h1>
+            <div class="h-16 flex items-center justify-center mb-6">
+                <p class="text-2xl md:text-3xl text-primary font-semibold">
+                    <span id="typed-text">풀스택 개발자</span><span class="typed-cursor">|</span>
+                </p>
+            </div>
+
+            <!-- 소개 -->
+            <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+                5년 이상의 웹 개발 경험으로 React, Node.js, TypeScript를 이용한 현대적이고 확장 가능한 애플리케이션을 구축합니다.
+                오픈소스 커뮤니티에 적극적으로 기여하며 기술 리더십을 발휘하고 있습니다.
+            </p>
+
+            <!-- CTA 버튼 -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <a href="#projects" class="inline-block px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors">
+                    프로젝트 보기
+                </a>
+                <a href="#contact" class="inline-block px-8 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition-colors">
+                    연락하기
+                </a>
+            </div>
+
+            <!-- 소셜 링크 -->
+            <div class="flex justify-center gap-6">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition-colors" aria-label="GitHub">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition-colors" aria-label="LinkedIn">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+                    </svg>
+                </a>
+                <a href="mailto:hong@example.com" class="text-gray-400 hover:text-primary transition-colors" aria-label="이메일">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 경력 섹션 ==================== -->
+    <section id="experience" class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-bg">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center text-white fade-in-section">경력 사항</h2>
+
+            <!-- 타임라인 -->
+            <div class="space-y-8">
+                <!-- 경력 1 -->
+                <div class="fade-in-section relative pl-8 border-l-2 border-primary">
+                    <div class="absolute -left-4 top-0 w-8 h-8 bg-primary rounded-full"></div>
+                    <div class="bg-dark-surface p-6 rounded-lg border border-dark-border hover:border-primary transition-colors">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                            <h3 class="text-xl font-bold text-white">ABC 테크놀로지</h3>
+                            <span class="text-sm text-gray-400">2022 ~ 현재</span>
+                        </div>
+                        <p class="text-primary font-semibold mb-3">시니어 프론트엔드 엔지니어</p>
+                        <p class="text-gray-300 leading-relaxed">
+                            React 및 TypeScript를 이용한 대규모 엔터프라이즈 애플리케이션 개발. 성능 최적화를 통해 페이지 로딩 시간 40% 단축.
+                            팀 리드로서 5명의 개발자를 지도하고 코드 리뷰 프로세스 수립.
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="inline-block bg-dark-border px-3 py-1 rounded-full text-xs text-gray-300">React</span>
+                            <span class="inline-block bg-dark-border px-3 py-1 rounded-full text-xs text-gray-300">TypeScript</span>
+                            <span class="inline-block bg-dark-border px-3 py-1 rounded-full text-xs text-gray-300">Next.js</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 경력 2 -->
+                <div class="fade-in-section relative pl-8 border-l-2 border-primary">
+                    <div class="absolute -left-4 top-0 w-8 h-8 bg-primary rounded-full"></div>
+                    <div class="bg-dark-surface p-6 rounded-lg border border-dark-border hover:border-primary transition-colors">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                            <h3 class="text-xl font-bold text-white">XYZ 스타트업</h3>
+                            <span class="text-sm text-gray-400">2020 ~ 2022</span>
+                        </div>
+                        <p class="text-primary font-semibold mb-3">풀스택 개발자</p>
+                        <p class="text-gray-300 leading-relaxed">
+                            초기 스타트업의 핵심 서비스 개발. Node.js 백엔드 및 React 프론트엔드를 담당.
+                            PostgreSQL 데이터베이스 설계 및 RESTful API 개발. 사용자 인증, 결제 시스템 통합.
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="inline-block bg-dark-border px-3 py-1 rounded-full text-xs text-gray-300">Node.js</span>
+                            <span class="inline-block bg-dark-border px-3 py-1 rounded-full text-xs text-gray-300">React</span>
+                            <span class="inline-block bg-dark-border px-3 py-1 rounded-full text-xs text-gray-300">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 프로젝트 섹션 ==================== -->
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-surface/30">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center text-white fade-in-section">프로젝트</h2>
+
+            <!-- 필터 버튼 -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in-section">
+                <button class="filter-btn px-6 py-2 rounded-full border-2 border-primary text-primary bg-primary/10 font-semibold transition-all active" data-filter="all">
+                    모두
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 text-gray-300 hover:border-primary hover:text-primary transition-all" data-filter="web">
+                    웹
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 text-gray-300 hover:border-primary hover:text-primary transition-all" data-filter="backend">
+                    백엔드
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 text-gray-300 hover:border-primary hover:text-primary transition-all" data-filter="tools">
+                    도구
+                </button>
+            </div>
+
+            <!-- 프로젝트 카드 그리드 -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 프로젝트 1 -->
+                <div class="project-card fade-in-section bg-dark-bg border border-dark-border rounded-lg overflow-hidden hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/20" data-category="web">
+                    <div class="h-40 bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">이커머스 플랫폼</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            완전한 기능의 온라인 쇼핑몰. 상품 관리, 장바구니, 결제 시스템을 포함한 E-commerce 솔루션.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="inline-block bg-dark-surface px-3 py-1 rounded-full text-xs text-gray-300">React</span>
+                            <span class="inline-block bg-dark-surface px-3 py-1 rounded-full text-xs text-gray-300">Node.js</span>
+                        </div>
+                        <a href="#" class="inline-block text-primary hover:text-blue-400 font-semibold text-sm">자세히 보기 →</a>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 2 -->
+                <div class="project-card fade-in-section bg-dark-bg border border-dark-border rounded-lg overflow-hidden hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/20" data-category="web">
+                    <div class="h-40 bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">SaaS 대시보드</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            실시간 데이터 분석 및 시각화 대시보드. 사용자 관리, 권한 제어, 데이터 export 기능.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="inline-block bg-dark-surface px-3 py-1 rounded-full text-xs text-gray-300">Next.js</span>
+                            <span class="inline-block bg-dark-surface px-3 py-1 rounded-full text-xs text-gray-300">TypeScript</span>
+                        </div>
+                        <a href="#" class="inline-block text-primary hover:text-blue-400 font-semibold text-sm">자세히 보기 →</a>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 3 -->
+                <div class="project-card fade-in-section bg-dark-bg border border-dark-border rounded-lg overflow-hidden hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/20" data-category="backend">
+                    <div class="h-40 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">CLI 도구</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            프로젝트 생성 및 배포 자동화 CLI 도구. GitHub Actions 통합으로 빠른 배포 워크플로우 제공.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="inline-block bg-dark-surface px-3 py-1 rounded-full text-xs text-gray-300">Node.js</span>
+                            <span class="inline-block bg-dark-surface px-3 py-1 rounded-full text-xs text-gray-300">GitHub API</span>
+                        </div>
+                        <a href="#" class="inline-block text-primary hover:text-blue-400 font-semibold text-sm">자세히 보기 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 기술 스택 섹션 ==================== -->
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-bg">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center text-white fade-in-section">기술 스택</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 프론트엔드 -->
+                <div class="fade-in-section">
+                    <h3 class="text-xl font-bold text-white mb-6 pb-3 border-b border-primary">프론트엔드</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">React</span>
+                                <span class="text-primary font-semibold">90%</span>
+                            </div>
+                            <div class="w-full bg-dark-surface rounded-full h-2">
+                                <div class="skill-bar bg-primary h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">TypeScript</span>
+                                <span class="text-primary font-semibold">80%</span>
+                            </div>
+                            <div class="w-full bg-dark-surface rounded-full h-2">
+                                <div class="skill-bar bg-primary h-2 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">CSS/Tailwind</span>
+                                <span class="text-primary font-semibold">85%</span>
+                            </div>
+                            <div class="w-full bg-dark-surface rounded-full h-2">
+                                <div class="skill-bar bg-primary h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 백엔드 -->
+                <div class="fade-in-section">
+                    <h3 class="text-xl font-bold text-white mb-6 pb-3 border-b border-primary">백엔드</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Node.js</span>
+                                <span class="text-primary font-semibold">85%</span>
+                            </div>
+                            <div class="w-full bg-dark-surface rounded-full h-2">
+                                <div class="skill-bar bg-primary h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">PostgreSQL</span>
+                                <span class="text-primary font-semibold">75%</span>
+                            </div>
+                            <div class="w-full bg-dark-surface rounded-full h-2">
+                                <div class="skill-bar bg-primary h-2 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Python</span>
+                                <span class="text-primary font-semibold">75%</span>
+                            </div>
+                            <div class="w-full bg-dark-surface rounded-full h-2">
+                                <div class="skill-bar bg-primary h-2 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 도구 & 플랫폼 -->
+                <div class="fade-in-section">
+                    <h3 class="text-xl font-bold text-white mb-6 pb-3 border-b border-primary">도구 & 플랫폼</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Docker</span>
+                                <span class="text-primary font-semibold">70%</span>
+                            </div>
+                            <div class="w-full bg-dark-surface rounded-full h-2">
+                                <div class="skill-bar bg-primary h-2 rounded-full" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Git & GitHub</span>
+                                <span class="text-primary font-semibold">90%</span>
+                            </div>
+                            <div class="w-full bg-dark-surface rounded-full h-2">
+                                <div class="skill-bar bg-primary h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">AWS</span>
+                                <span class="text-primary font-semibold">70%</span>
+                            </div>
+                            <div class="w-full bg-dark-surface rounded-full h-2">
+                                <div class="skill-bar bg-primary h-2 rounded-full" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 연락처 섹션 ==================== -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-surface/30">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center text-white fade-in-section">연락처</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 이메일 -->
+                <a href="mailto:hong@example.com" class="fade-in-section group">
+                    <div class="bg-dark-bg border border-dark-border rounded-lg p-6 hover:border-primary transition-colors hover:shadow-lg hover:shadow-primary/20 h-full flex flex-col items-center justify-center text-center">
+                        <div class="mb-4 p-3 bg-primary/20 rounded-lg group-hover:bg-primary/30 transition-colors">
+                            <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">이메일</h3>
+                        <p class="text-primary group-hover:text-blue-400 transition-colors">hong@example.com</p>
+                    </div>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="fade-in-section group">
+                    <div class="bg-dark-bg border border-dark-border rounded-lg p-6 hover:border-primary transition-colors hover:shadow-lg hover:shadow-primary/20 h-full flex flex-col items-center justify-center text-center">
+                        <div class="mb-4 p-3 bg-primary/20 rounded-lg group-hover:bg-primary/30 transition-colors">
+                            <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">GitHub</h3>
+                        <p class="text-primary group-hover:text-blue-400 transition-colors">@honggildong</p>
+                    </div>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="fade-in-section group">
+                    <div class="bg-dark-bg border border-dark-border rounded-lg p-6 hover:border-primary transition-colors hover:shadow-lg hover:shadow-primary/20 h-full flex flex-col items-center justify-center text-center">
+                        <div class="mb-4 p-3 bg-primary/20 rounded-lg group-hover:bg-primary/30 transition-colors">
+                            <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">LinkedIn</h3>
+                        <p class="text-primary group-hover:text-blue-400 transition-colors">honggildong</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 푸터 ==================== -->
+    <footer class="bg-dark-bg border-t border-dark-border py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center text-gray-400">
+            <p>&copy; <span id="current-year">2024</span> 홍길동. 모든 권리 보유.</p>
+            <p class="text-sm mt-2">이 웹사이트는 HTML, CSS, Vanilla JavaScript로 제작되었습니다.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript 파일 -->
+    <script src="script.js"></script>
+</body>
+</html>
