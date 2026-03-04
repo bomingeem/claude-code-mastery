@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카운터 앱</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-950 flex items-center justify-center">
+
+  <div class="bg-gray-900 rounded-2xl shadow-2xl p-10 flex flex-col items-center gap-8 w-80">
+    <h1 class="text-white text-2xl font-bold tracking-wide">카운터</h1>
+
+    <!-- 카운트 표시 -->
+    <div id="count-display"
+         class="text-7xl font-mono font-extrabold text-blue-400 w-40 text-center
+                transition-all duration-200">
+      0
+    </div>
+
+    <!-- 버튼 그룹 -->
+    <div class="flex gap-3 w-full">
+      <button onclick="decrement()"
+              class="flex-1 py-3 rounded-xl bg-blue-900 hover:bg-blue-800 active:scale-95
+                     text-blue-200 text-2xl font-bold transition-all duration-150">
+        −
+      </button>
+      <button onclick="reset()"
+              class="flex-1 py-3 rounded-xl bg-gray-700 hover:bg-gray-600 active:scale-95
+                     text-gray-300 text-sm font-semibold tracking-wider transition-all duration-150">
+        RESET
+      </button>
+      <button onclick="increment()"
+              class="flex-1 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-95
+                     text-white text-2xl font-bold transition-all duration-150">
+        +
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let count = 0;
+    const display = document.getElementById('count-display');
+
+    function updateDisplay() {
+      display.textContent = count;
+      // 양수/음수에 따라 색상 변경
+      display.className = display.className.replace(/text-\w+-\d+/, '');
+      if (count > 0) {
+        display.classList.add('text-blue-400');
+      } else if (count < 0) {
+        display.classList.add('text-red-400');
+      } else {
+        display.classList.add('text-blue-400');
+      }
+    }
+
+    function increment() { count++; updateDisplay(); }
+    function decrement() { count--; updateDisplay(); }
+    function reset()     { count = 0; updateDisplay(); }
+  </script>
+
+</body>
+</html>

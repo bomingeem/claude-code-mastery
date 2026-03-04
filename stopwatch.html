@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스톱워치</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-950 flex items-center justify-center">
+
+  <div class="bg-gray-900 rounded-2xl shadow-2xl p-10 flex flex-col items-center gap-8 w-96">
+    <h1 class="text-white text-2xl font-bold tracking-wide">스톱워치</h1>
+
+    <!-- 시간 표시 -->
+    <div id="display"
+         class="text-6xl font-mono font-extrabold text-blue-400 tracking-widest">
+      00:00:00
+    </div>
+
+    <!-- 버튼 그룹 -->
+    <div class="flex gap-4 w-full">
+      <button id="start-stop"
+              onclick="toggleStartStop()"
+              class="flex-1 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-95
+                     text-white font-bold text-lg transition-all duration-150">
+        시작
+      </button>
+      <button onclick="reset()"
+              class="flex-1 py-3 rounded-xl bg-gray-700 hover:bg-gray-600 active:scale-95
+                     text-gray-300 font-semibold text-lg transition-all duration-150">
+        리셋
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let interval = null;
+    let elapsed = 0; // 총 경과 시간 (ms)
+    let startTime = 0;
+    const display = document.getElementById('display');
+    const btn = document.getElementById('start-stop');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function format(ms) {
+      const totalSec = Math.floor(ms / 1000);
+      const h = Math.floor(totalSec / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      return `${pad(h)}:${pad(m)}:${pad(s)}`;
+    }
+
+    function toggleStartStop() {
+      if (interval) {
+        // 일시정지
+        clearInterval(interval);
+        elapsed += Date.now() - startTime;
+        interval = null;
+        btn.textContent = '재개';
+        btn.classList.replace('bg-blue-600', 'bg-green-600');
+        btn.classList.replace('hover:bg-blue-500', 'hover:bg-green-500');
+      } else {
+        // 시작 / 재개
+        startTime = Date.now();
+        interval = setInterval(() => {
+          display.textContent = format(elapsed + Date.now() - startTime);
+        }, 100);
+        btn.textContent = '일시정지';
+        btn.classList.replace('bg-green-600', 'bg-blue-600');
+        btn.classList.replace('hover:bg-green-500', 'hover:bg-blue-500');
+      }
+    }
+
+    function reset() {
+      clearInterval(interval);
+      interval = null;
+      elapsed = 0;
+      display.textContent = '00:00:00';
+      btn.textContent = '시작';
+      btn.classList.replace('bg-green-600', 'bg-blue-600');
+      btn.classList.replace('hover:bg-green-500', 'hover:bg-blue-500');
+    }
+  </script>
+
+</body>
+</html>

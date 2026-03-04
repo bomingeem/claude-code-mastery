@@ -6,5 +6,6 @@
       "Bash(brew install:*)",
       "Bash(mkdir:*)"
     ]
-  }
+  },
+  "outputStyle": "Intermediate Developer"
 }
