@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>계산기</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #1a1a2e;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .calculator {
+      background: #16213e;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      width: 320px;
+    }
+
+    /* 디스플레이 */
+    .display {
+      background: #0f3460;
+      border-radius: 12px;
+      padding: 20px 16px 12px;
+      margin-bottom: 20px;
+      text-align: right;
+    }
+
+    .expression {
+      color: #a8b2c8;
+      font-size: 14px;
+      min-height: 20px;
+      margin-bottom: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .result {
+      color: #e2e8f0;
+      font-size: 36px;
+      font-weight: 300;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* 버튼 그리드 - 이벤트 위임을 위한 단일 컨테이너 */
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    button {
+      height: 64px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.1s;
+    }
+
+    button:active {
+      transform: scale(0.95);
+      opacity: 0.85;
+    }
+
+    /* 버튼 타입별 색상 */
+    .btn-number {
+      background: #1e3a5f;
+      color: #e2e8f0;
+    }
+
+    .btn-number:hover {
+      background: #254d7a;
+    }
+
+    .btn-operator {
+      background: #e94560;
+      color: #fff;
+    }
+
+    .btn-operator:hover {
+      background: #ff5575;
+    }
+
+    .btn-action {
+      background: #0f3460;
+      color: #a8b2c8;
+    }
+
+    .btn-action:hover {
+      background: #1a4a80;
+    }
+
+    .btn-equals {
+      background: #e94560;
+      color: #fff;
+      grid-column: span 2;
+    }
+
+    .btn-equals:hover {
+      background: #ff5575;
+    }
+
+    .btn-zero {
+      grid-column: span 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <!-- 디스플레이 -->
+    <div class="display">
+      <div class="expression" id="expression"></div>
+      <div class="result" id="result">0</div>
+    </div>
+
+    <!-- 버튼 그리드: 이벤트 위임으로 클릭 처리 -->
+    <div class="buttons" id="buttons">
+      <button class="btn-action" data-action="clear">AC</button>
+      <button class="btn-action" data-action="sign">+/-</button>
+      <button class="btn-action" data-action="percent">%</button>
+      <button class="btn-operator" data-operator="/">÷</button>
+
+      <button class="btn-number" data-num="7">7</button>
+      <button class="btn-number" data-num="8">8</button>
+      <button class="btn-number" data-num="9">9</button>
+      <button class="btn-operator" data-operator="*">×</button>
+
+      <button class="btn-number" data-num="4">4</button>
+      <button class="btn-number" data-num="5">5</button>
+      <button class="btn-number" data-num="6">6</button>
+      <button class="btn-operator" data-operator="-">−</button>
+
+      <button class="btn-number" data-num="1">1</button>
+      <button class="btn-number" data-num="2">2</button>
+      <button class="btn-number" data-num="3">3</button>
+      <button class="btn-operator" data-operator="+">+</button>
+
+      <button class="btn-number btn-zero" data-num="0">0</button>
+      <button class="btn-number" data-num=".">.</button>
+      <button class="btn-equals" data-action="equals">=</button>
+    </div>
+  </div>
+
+  <script>
+    // 계산기 상태
+    let state = {
+      current: '0',      // 현재 입력값
+      previous: null,    // 이전 입력값
+      operator: null,    // 선택된 연산자
+      resetNext: false,  // 다음 입력 시 화면 초기화 여부
+    };
+
+    const resultEl = document.getElementById('result');
+    const expressionEl = document.getElementById('expression');
+
+    // 화면 업데이트
+    function updateDisplay() {
+      resultEl.textContent = state.current;
+      if (state.operator && state.previous !== null) {
+        const opSymbol = { '+': '+', '-': '−', '*': '×', '/': '÷' };
+        expressionEl.textContent = `${state.previous} ${opSymbol[state.operator]}`;
+      } else {
+        expressionEl.textContent = '';
+      }
+    }
+
+    // 숫자 입력 처리
+    function handleNumber(num) {
+      if (state.resetNext) {
+        state.current = num === '.' ? '0.' : num;
+        state.resetNext = false;
+        return;
+      }
+      if (num === '.') {
+        if (!state.current.includes('.')) state.current += '.';
+        return;
+      }
+      state.current = state.current === '0' ? num : state.current + num;
+    }
+
+    // 연산자 선택 처리
+    function handleOperator(op) {
+      if (state.operator && !state.resetNext) {
+        calculate();
+      }
+      state.previous = state.current;
+      state.operator = op;
+      state.resetNext = true;
+    }
+
+    // TODO(human): calculate() 함수를 여기에 구현하세요
+    // previous, current, operator 상태를 이용해 계산 결과를 state.current에 저장하고
+    // state.previous, state.operator를 초기화하며 state.resetNext를 true로 설정합니다.
+    function calculate() {
+
+    }
+
+    // 특수 액션 처리 (AC, +/-, %, =)
+    function handleAction(action) {
+      switch (action) {
+        case 'clear':
+          state = { current: '0', previous: null, operator: null, resetNext: false };
+          break;
+        case 'sign':
+          state.current = String(parseFloat(state.current) * -1);
+          break;
+        case 'percent':
+          state.current = String(parseFloat(state.current) / 100);
+          break;
+        case 'equals':
+          if (state.operator && state.previous !== null) {
+            calculate();
+          }
+          break;
+      }
+    }
+
+    // 이벤트 위임: 버튼 컨테이너 하나에서 모든 클릭 처리
+    document.getElementById('buttons').addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+
+      if (btn.dataset.num !== undefined) handleNumber(btn.dataset.num);
+      else if (btn.dataset.operator) handleOperator(btn.dataset.operator);
+      else if (btn.dataset.action) handleAction(btn.dataset.action);
+
+      updateDisplay();
+    });
+  </script>
+</body>
+</html>
