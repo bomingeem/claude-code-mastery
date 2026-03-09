@@ -4,7 +4,8 @@
           "Bash"
         ],
         "deny": [],
-        "ask": []
+        "ask": [],
+        "defaultMode": "plan"
       },
       "outputStyle": "Explanatory"
 }
